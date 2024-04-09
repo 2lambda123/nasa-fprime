@@ -71,7 +71,7 @@ class XmlEnumParser:
         self.__xml_filename = xml_file
         self.__items = []
 
-        xml_parser = etree.XMLParser(remove_comments=True)
+        xml_parser = etree.XMLParser(remove_comments=True, resolve_entities=False)
         element_tree = etree.parse(fd, parser=xml_parser)
         fd.close()  # Close the file, which is only used for the parsing above
 

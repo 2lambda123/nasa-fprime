@@ -95,7 +95,7 @@ class XmlComponentParser:
         else:
             self.__const_parser = None
 
-        xml_parser = etree.XMLParser(remove_comments=True)
+        xml_parser = etree.XMLParser(remove_comments=True, resolve_entities=False)
         element_tree = etree.parse(fd, parser=xml_parser)
         fd.close()  # Close the file, which is only used for the parsing above
 
@@ -179,7 +179,7 @@ class XmlComponentParser:
                     raise OSError(stri)
                 PRINT.info("Reading external dictionary %s" % dict_file)
                 dict_fd = open(dict_file)
-                _ = etree.XMLParser(remove_comments=True)
+                _ = etree.XMLParser(remove_comments=True, resolve_entities=False)
                 dict_element_tree = etree.parse(dict_fd, parser=xml_parser)
 
                 component.append(dict_element_tree.getroot())
