@@ -107,7 +107,7 @@ def diff_files(xml_list):
     for xml_path in xml_list:
         # Create etree object
         fd = open(xml_path, "r")
-        xml_parser = etree.XMLParser(remove_comments=True)
+        xml_parser = etree.XMLParser(remove_comments=True, resolve_entities=False)
         element_tree = etree.parse(fd, parser=xml_parser)
         fd.close()
 
@@ -149,7 +149,7 @@ def command_index_print(xml_list):
     for xml_path in xml_list:
         # Create etree object
         fd = open(xml_path, "r")
-        xml_parser = etree.XMLParser(remove_comments=True)
+        xml_parser = etree.XMLParser(remove_comments=True, resolve_entities=False)
         element_tree = etree.parse(fd, parser=xml_parser)
         fd.close()
 
