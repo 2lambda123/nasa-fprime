@@ -3,6 +3,7 @@ import sys
 
 import pytest
 from lxml import etree
+import lxml.etree
 
 """
 To add tests, go down to the setup function.
@@ -37,7 +38,7 @@ class schema_test:
         with open(self.__schema_path) as relax_file_handler:
 
             # Parse schema file
-            relax_parsed = etree.parse(relax_file_handler)
+            relax_parsed = etree.parse(relax_file_handler, parser=lxml.etree.XMLParser(resolve_entities=False))
 
             # Compile schema file
             self.__compiled = etree.RelaxNG(relax_parsed)
@@ -66,7 +67,7 @@ class schema_test:
         with open(file_path) as handler:
 
             # Parse schema file
-            parsed = etree.parse(handler)
+            parsed = etree.parse(handler, parser=lxml.etree.XMLParser(resolve_entities=False))
 
         return parsed
 
@@ -149,7 +150,7 @@ class schema_test:
         if not xml_parsed:
             self.__validate_file(test_set[1], "XML")
             with open(test_set[1]) as xml_file_handler:
-                xml_parsed = etree.parse(xml_file_handler)
+                xml_parsed = etree.parse(xml_file_handler, parser=lxml.etree.XMLParser(resolve_entities=False))
 
         if test_set[2]:
             with pytest.raises(test_set[2]) as excinfo:

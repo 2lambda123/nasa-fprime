@@ -32,6 +32,7 @@ from fprime_ac.utils.exceptions import (
     FprimeXmlException,
 )
 from lxml import etree, isoschematron
+import lxml.etree
 
 # For Python determination
 
@@ -101,7 +102,7 @@ class XmlComponentParser:
 
         # Validate against current schema. if more are imported later in the process, they will be reevaluated
         relax_file_handler = open(ROOTDIR + self.Config.get("schema", "component"))
-        relax_parsed = etree.parse(relax_file_handler)
+        relax_parsed = etree.parse(relax_file_handler, parser=lxml.etree.XMLParser(resolve_entities=False))
         relax_file_handler.close()
         relax_compiled = etree.RelaxNG(relax_parsed)
 
@@ -1210,7 +1211,7 @@ class XmlComponentParser:
         validator_file_handler = open(
             ROOTDIR + self.Config.get(validator_type, validator_name)
         )
-        validator_parsed = etree.parse(validator_file_handler)
+        validator_parsed = etree.parse(validator_file_handler, parser=lxml.etree.XMLParser(resolve_entities=False))
         validator_file_handler.close()
         if validator_type == "schema":
             validator_compiled = etree.RelaxNG(validator_parsed)

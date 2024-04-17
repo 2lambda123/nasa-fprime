@@ -23,6 +23,7 @@ import sys
 from fprime_ac.utils import ConfigManager
 from fprime_ac.utils.exceptions import FprimeRngXmlValidationException
 from lxml import etree
+import lxml.etree
 
 #
 # Python extension modules and custom interfaces
@@ -76,7 +77,7 @@ class XmlPortsParser:
 
         # Validate against schema
         relax_file_handler = open(ROOTDIR + self.__config.get("schema", "interface"))
-        relax_parsed = etree.parse(relax_file_handler)
+        relax_parsed = etree.parse(relax_file_handler, parser=lxml.etree.XMLParser(resolve_entities=False))
         relax_file_handler.close()
         relax_compiled = etree.RelaxNG(relax_parsed)
 

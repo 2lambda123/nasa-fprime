@@ -19,6 +19,7 @@ import logging
 import os
 
 from lxml import etree
+import lxml.etree
 
 #
 # Python extension modules and custom interfaces
@@ -42,7 +43,7 @@ class XmlParser:
 
         fd = open(xml_file)
 
-        element_tree = etree.parse(fd)
+        element_tree = etree.parse(fd, parser=lxml.etree.XMLParser(resolve_entities=False))
         self.__root = element_tree.getroot().tag
 
         fd.close()

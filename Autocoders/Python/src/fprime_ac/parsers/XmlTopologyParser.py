@@ -31,6 +31,7 @@ from fprime_ac.utils.exceptions import (
     FprimeXmlException,
 )
 from lxml import etree, isoschematron
+import lxml.etree
 
 # from builtins import file
 #
@@ -75,12 +76,12 @@ class XmlTopologyParser:
         self.__base_id_window = None
 
         self.__prepend_instance_name = False  # Used to turn off prepending instance name in the situation where instance dicts are being generated and only one instance of an object is created
-        element_tree = etree.parse(fd)
+        element_tree = etree.parse(fd, parser=lxml.etree.XMLParser(resolve_entities=False))
         fd.close()  # Close the file, which is only used for the parsing above
 
         # Validate against schema
         relax_file_handler = open(ROOTDIR + self.__config.get("schema", "assembly"))
-        relax_parsed = etree.parse(relax_file_handler)
+        relax_parsed = etree.parse(relax_file_handler, parser=lxml.etree.XMLParser(resolve_entities=False))
         relax_file_handler.close()
         relax_compiled = etree.RelaxNG(relax_parsed)
 
@@ -270,7 +271,7 @@ class XmlTopologyParser:
         validator_file_handler = open(
             ROOTDIR + self.Config.get(validator_type, validator_name)
         )
-        validator_parsed = etree.parse(validator_file_handler)
+        validator_parsed = etree.parse(validator_file_handler, parser=lxml.etree.XMLParser(resolve_entities=False))
         validator_file_handler.close()
         if validator_type == "schema":
             validator_compiled = etree.RelaxNG(validator_parsed)

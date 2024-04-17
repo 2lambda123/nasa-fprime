@@ -29,6 +29,7 @@ from fprime_ac.utils.buildroot import (
 )
 from fprime_ac.utils.exceptions import FprimeXmlException
 from lxml import etree
+import lxml.etree
 
 #
 # Python extension modules and custom interfaces
@@ -117,7 +118,7 @@ class XmlSerializeParser:
             )
             raise OSError(stri)
         file_handler = open(rng_file)
-        relax_parsed = etree.parse(file_handler)
+        relax_parsed = etree.parse(file_handler, parser=lxml.etree.XMLParser(resolve_entities=False))
         file_handler.close()
         relax_compiled = etree.RelaxNG(relax_parsed)
 
