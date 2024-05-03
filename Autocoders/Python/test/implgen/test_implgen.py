@@ -33,8 +33,8 @@ def file_diff(file1, file2):
             count = 0
             # Compare line by line until a file hits EOF
             while 1:
-                line1 = file1open.readline()
-                line2 = file2open.readline()
+                line1 = file1open.readline(5_000_000)
+                line2 = file2open.readline(5_000_000)
                 if not line1 or not line2:
                     break
                 elif not line1 == line2:
