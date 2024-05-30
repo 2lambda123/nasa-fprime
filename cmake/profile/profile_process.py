@@ -1,4 +1,4 @@
-import random
+import secrets
 
 MEMBER_SIZES = 3
 
@@ -41,7 +41,7 @@ for token, pair in totals.items():
         hist[index] = (hist[index][0] + 1, hist[index][1] + [module])
     for index, pair in hist.items():
         count, members = pair
-        random.shuffle(members)
+        secrets.SystemRandom().shuffle(members)
         if count != 0:
             print(
                 "    {:3} ms: {:4}        -- {}".format(
