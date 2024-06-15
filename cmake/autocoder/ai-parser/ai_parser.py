@@ -11,7 +11,7 @@ from __future__ import print_function
 
 import os
 import sys
-import xml.etree.ElementTree
+import defusedxml.ElementTree
 
 # Dependencies required by basic types
 BASIC_DEPENDENCIES = {
@@ -95,7 +95,7 @@ def main():
         )
         sys.exit(3)
     # Read the xml tree
-    tree = xml.etree.ElementTree.parse(sys.argv[1])
+    tree = defusedxml.ElementTree.parse(sys.argv[1])
     root = tree.getroot()
     print(XML_TAG_REMAP.get(root.tag, root.tag.capitalize()))
     print_fprime_dependencies(root, *sys.argv[2:])
@@ -198,7 +198,7 @@ def read_xml_file(root, import_base):
                 dependencies.update(KIND_DEPENDENCIES[kind])
     # Recurse imports for other importables
     for recurse_ai in root.findall("import_dictionary"):
-        tmptree = xml.etree.ElementTree.parse(
+        tmptree = defusedxml.ElementTree.parse(
             os.path.join(import_base, recurse_ai.text)
         )
         newroot = tmptree.getroot()

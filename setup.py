@@ -41,5 +41,6 @@ setup(
         "fprime-tools>=v3.1.0a2",
         "fprime-gds>=v3.1.0a2",
         "fprime-fpp>=v1.0.2b12",
+        "defusedxml==0.7.1",
     ],
 )
